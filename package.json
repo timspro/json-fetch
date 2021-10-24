@@ -1,0 +1,51 @@
+{
+  "name": "@tim-code/json-fetch",
+  "version": "0.0.1",
+  "description": "",
+  "main": "./index.cjs",
+  "exports": {
+    "import": "./index.js",
+    "require": "./index.cjs"
+  },
+  "type": "module",
+  "scripts": {
+    "test": "node --no-warnings --experimental-vm-modules node_modules/.bin/jest",
+    "prepublishOnly": "babel index.js --out-file index.cjs"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/cli": "^7.15.7",
+    "@babel/core": "^7.15.8",
+    "@babel/preset-env": "^7.15.8",
+    "@tim-code/autotest": "^0.4.8",
+    "@tim-code/eslint-config": "^0.2.2",
+    "jest": "^27.2.5",
+    "node-fetch": "^3.0.0"
+  },
+  "jest": {
+    "transform": {}
+  },
+  "eslintConfig": {
+    "extends": "@tim-code",
+    "env": {
+      "jest": true
+    },
+    "ignorePatterns": "index.cjs"
+  },
+  "babel": {
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "targets": {
+            "node": 12
+          }
+        }
+      ]
+    ]
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
