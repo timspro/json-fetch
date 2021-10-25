@@ -1,6 +1,6 @@
 import { autotest } from "@tim-code/autotest"
 import fetch from "node-fetch"
-import { get, onError, parseIndexOfError, post, request } from "./index.js"
+import { get, multirequest, onError, parseIndexOfError, post, request } from "./index.js"
 
 autotest(parseIndexOfError)("position 10")(10)
 autotest(parseIndexOfError)("line 2 column 3", "   \n  a")(6)
@@ -37,3 +37,15 @@ autotest(request)("https://httpbin.org/post", {
   body: postInput,
   query: getInput,
 })(expect.objectContaining({ json: postInput, args: getInput }))
+
+const multiInput = { query: [{ test: "a" }, { test: "b" }] }
+autotest(multirequest)("https://httpbin.org/get", { ...options, ...multiInput })([
+  expect.objectContaining({ args: multiInput.query[0] }),
+  expect.objectContaining({ args: multiInput.query[1] }),
+])
+
+const multiInputPost = { body: [{ test: 10 }, { test: 20 }] }
+autotest(multirequest)("https://httpbin.org/post", { ...options, ...multiInputPost })([
+  expect.objectContaining({ json: multiInputPost.body[0] }),
+  expect.objectContaining({ json: multiInputPost.body[1] }),
+])

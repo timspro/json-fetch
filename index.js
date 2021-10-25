@@ -89,3 +89,22 @@ export function request(url, { query, body, ...options } = {}) {
   }
   return get(url, query, options)
 }
+
+function expand(config, key) {
+  if (Array.isArray(config[key])) {
+    return config[key].map((value) => ({ ...config, [key]: value }))
+  }
+  return [config]
+}
+
+function expandAll(configArray, key) {
+  return configArray.map((config) => expand(config, key)).flat()
+}
+
+export function multirequest(url, config) {
+  if (!Array.isArray(config.query) && !Array.isArray(config.body)) {
+    return request(url, config)
+  }
+  const configArray = expandAll(expandAll([config], "query"), "body")
+  return Promise.all(configArray.map((cfg) => request(url, cfg)))
+}
