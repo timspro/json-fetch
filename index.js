@@ -61,6 +61,9 @@ export async function jsonFetch(
 }
 
 export function appendQueryParams(url, input) {
+  if (!input) {
+    return url
+  }
   const urlBuilder = new URL(url)
   for (const key of Object.keys(input)) {
     urlBuilder.searchParams.append(key, input[key])
@@ -69,9 +72,7 @@ export function appendQueryParams(url, input) {
 }
 
 export function get(url, query, options = {}) {
-  if (query) {
-    url = appendQueryParams(url, query)
-  }
+  url = appendQueryParams(url, query)
   return jsonFetch(url, { ...options, method: "GET" })
 }
 
