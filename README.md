@@ -13,6 +13,7 @@ import * as json from "@tim-code/json-fetch"
 json.jsonFetch(url, fetchOptions)
 json.get(url, { queryParamKey: queryParamValue }, fetchOptions)
 json.post(url, { postBodyKey: postBodyValue }, fetchOptions)
+json.request(url, { ...fetchOptions, query: { a: "b" }, body: { c: "d" } })
 ```
 
 The functions exported will not throw errors on "abnormal" responses. Instead, abnormal responses are logged using `console.error` and an empty object `{}` is returned.

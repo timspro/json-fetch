@@ -81,3 +81,11 @@ export function post(url, body, options = {}) {
   const headers = { ...(options.headers || {}), "Content-Type": "application/json" }
   return jsonFetch(url, { ...options, headers, method: "POST", body })
 }
+
+export function request(url, { query, body, ...options } = {}) {
+  if (body) {
+    url = appendQueryParams(url, query)
+    return post(url, body, options)
+  }
+  return get(url, query, options)
+}
