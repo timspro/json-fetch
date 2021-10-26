@@ -36,3 +36,5 @@ In addition to the normal `fetch` options, the following are also optional:
 `fetch`: a callback to be used instead of a global fetch; it is usually necessary to pass this in Node environments
 
 `onError`: a callback that completely overrides error behavior; its return value will be passed back instead of an empty object assuming it didn't throw an error
+
+`raw`: if set, does not attempt to parse JSON

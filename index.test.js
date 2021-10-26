@@ -14,7 +14,7 @@ autotest(onError, { after: () => message[2] })({
   error: (...args) => {
     message = args
   },
-})("efg")
+})("...efg...")
 
 const options = { fetch }
 

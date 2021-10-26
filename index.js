@@ -21,20 +21,23 @@ export function parseIndexOfError(message, text) {
 
 export function onError({
   status,
-  json,
+  result,
   text,
   jsonSyntaxMessage,
   aroundError = 50,
   error = console.error,
 }) {
-  if (json) {
-    error(`bad status:`, status, json)
+  if (result) {
+    error(`bad status:`, status, result)
   } else {
     const position = parseIndexOfError(jsonSyntaxMessage, text)
     if (position) {
-      const leftEllipsis = position - aroundError < 0 ? "..." : ""
-      const rightEllipsis = position + aroundError > jsonSyntaxMessage.length ? "..." : ""
-      const message = text.substring(position - aroundError, position + aroundError + 1)
+      const left = position - aroundError
+      const right = position + aroundError + 1
+      const leftEllipsis = left > 0 ? "..." : ""
+      const rightEllipsis = right < jsonSyntaxMessage.length ? "..." : ""
+      // .substring bounds arguments to 0 and text.length if less than or greater than
+      const message = text.substring(left, right)
       error(`invalid json:`, status, `${leftEllipsis}${message}${rightEllipsis}`)
     } else {
       error(`invalid json:`, status, jsonSyntaxMessage)
@@ -43,18 +46,26 @@ export function onError({
   return {}
 }
 
+function shorten(string, newLength = 100) {
+  if (string.length > newLength) {
+    return `${string.substring(0, newLength)}...`
+  }
+  return string
+}
+
 export async function jsonFetch(
   url,
-  { fetch: _fetch = fetch, onError: _onError = onError, ...options } = {}
+  { fetch: _fetch = fetch, onError: _onError = onError, raw = false, ...options } = {}
 ) {
   const response = await _fetch(url, options)
   const text = await response.text()
   try {
-    const json = JSON.parse(text)
+    let result = raw ? text : JSON.parse(text)
     if (response.ok) {
-      return json
+      return result
     }
-    return _onError({ status: response.status, json, text })
+    result = raw ? shorten(result) : result
+    return _onError({ status: response.status, result, text })
   } catch (error) {
     return _onError({ status: response.status, text, jsonSyntaxMessage: error.message })
   }
