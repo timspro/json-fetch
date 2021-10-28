@@ -53,7 +53,7 @@ function shorten(string, newLength = 100) {
   return string
 }
 
-export async function jsonFetch(
+async function fetchJson(
   url,
   { fetch: _fetch = fetch, onError: _onError = onError, raw = false, ...options } = {}
 ) {
@@ -84,13 +84,13 @@ export function appendQueryParams(url, input) {
 
 export function get(url, query, options = {}) {
   url = appendQueryParams(url, query)
-  return jsonFetch(url, { ...options, method: "GET" })
+  return fetchJson(url, { ...options, method: "GET" })
 }
 
 export function post(url, body, options = {}) {
   body = JSON.stringify(body)
   const headers = { ...(options.headers || {}), "Content-Type": "application/json" }
-  return jsonFetch(url, { ...options, headers, method: "POST", body })
+  return fetchJson(url, { ...options, headers, method: "POST", body })
 }
 
 export function request(url, { query, body, ...options } = {}) {
