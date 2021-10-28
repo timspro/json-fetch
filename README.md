@@ -10,7 +10,6 @@ A zero-dependency fetch wrapper for HTTP/HTTPS requests that should return well-
 
 ```js
 import * as json from "@tim-code/json-fetch"
-json.jsonFetch(url, fetchOptions)
 json.get(url, { queryParamKey: queryParamValue }, fetchOptions)
 json.post(url, { postBodyKey: postBodyValue }, fetchOptions)
 json.request(url, { ...fetchOptions, query: { a: "b" }, body: { c: "d" } })
