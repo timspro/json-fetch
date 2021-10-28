@@ -1,6 +1,6 @@
 import { autotest } from "@tim-code/autotest"
 import fetch from "node-fetch"
-import { get, http, onError, parseIndexOfError, post, request } from "./index.js"
+import { get, onError, parseIndexOfError, post, request } from "./index.js"
 
 autotest(parseIndexOfError)("position 10")(10)
 autotest(parseIndexOfError)("line 2 column 3", "   \n  a")(6)
@@ -32,7 +32,7 @@ autotest(post)("https://httpbin.org/post", postInput, options)(
   expect.objectContaining({ json: postInput })
 )
 
-autotest(http)("https://httpbin.org/post", {
+autotest(request)("https://httpbin.org/post", {
   ...options,
   body: postInput,
   query: getInput,
