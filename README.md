@@ -37,3 +37,7 @@ In addition to the normal `fetch` options, the following are also optional:
 `onError`: a callback that completely overrides error behavior; its return value will be passed back instead of an empty object assuming it didn't throw an error
 
 `raw`: if set, does not attempt to parse JSON; will pass back a string instead of of JSON
+
+`query`: query parameters
+
+`body`: post body; if present, will cause a POST instead of a GET request to be made (and `Content-Type` header set)
