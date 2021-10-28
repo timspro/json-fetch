@@ -93,7 +93,7 @@ export function post(url, body, options = {}) {
   return fetchJson(url, { ...options, headers, method: "POST", body })
 }
 
-export function request(url, { query, body, ...options } = {}) {
+export function http(url, { query, body, ...options } = {}) {
   if (body) {
     url = appendQueryParams(url, query)
     return post(url, body, options)
@@ -112,10 +112,10 @@ function expandAll(configArray, key) {
   return configArray.map((config) => expand(config, key)).flat()
 }
 
-export function multirequest(url, config) {
+export function request(url, config) {
   if (!Array.isArray(config.query) && !Array.isArray(config.body)) {
-    return request(url, config)
+    return http(url, config)
   }
   const configArray = expandAll(expandAll([config], "query"), "body")
-  return Promise.all(configArray.map((cfg) => request(url, cfg)))
+  return Promise.all(configArray.map((cfg) => http(url, cfg)))
 }

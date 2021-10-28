@@ -1,6 +1,6 @@
 import { autotest } from "@tim-code/autotest"
 import fetch from "node-fetch"
-import { get, multirequest, onError, parseIndexOfError, post, request } from "./index.js"
+import { get, http, onError, parseIndexOfError, post, request } from "./index.js"
 
 autotest(parseIndexOfError)("position 10")(10)
 autotest(parseIndexOfError)("line 2 column 3", "   \n  a")(6)
@@ -32,20 +32,20 @@ autotest(post)("https://httpbin.org/post", postInput, options)(
   expect.objectContaining({ json: postInput })
 )
 
-autotest(request)("https://httpbin.org/post", {
+autotest(http)("https://httpbin.org/post", {
   ...options,
   body: postInput,
   query: getInput,
 })(expect.objectContaining({ json: postInput, args: getInput }))
 
 const multiInput = { query: [{ test: "a" }, { test: "b" }] }
-autotest(multirequest)("https://httpbin.org/get", { ...options, ...multiInput })([
+autotest(request)("https://httpbin.org/get", { ...options, ...multiInput })([
   expect.objectContaining({ args: multiInput.query[0] }),
   expect.objectContaining({ args: multiInput.query[1] }),
 ])
 
 const multiInputPost = { body: [{ test: 10 }, { test: 20 }] }
-autotest(multirequest)("https://httpbin.org/post", { ...options, ...multiInputPost })([
+autotest(request)("https://httpbin.org/post", { ...options, ...multiInputPost })([
   expect.objectContaining({ json: multiInputPost.body[0] }),
   expect.objectContaining({ json: multiInputPost.body[1] }),
 ])
