@@ -1,4 +1,4 @@
-/* global console, URL, fetch */
+/* global fetch */
 
 function indexOfIth(string, substring, ith = 1) {
   return string.split(substring, ith).join(substring).length

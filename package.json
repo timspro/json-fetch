@@ -1,6 +1,6 @@
 {
   "name": "@tim-code/json-fetch",
-  "version": "0.3.5",
+  "version": "0.3.6",
   "description": "",
   "main": "./index.cjs",
   "exports": {
@@ -15,12 +15,12 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "@babel/cli": "^7.15.7",
-    "@babel/core": "^7.15.8",
-    "@babel/preset-env": "^7.15.8",
-    "@tim-code/autotest": "^0.4.8",
-    "@tim-code/eslint-config": "^0.2.2",
-    "jest": "^27.2.5",
+    "@babel/cli": "^7.16.0",
+    "@babel/core": "^7.16.0",
+    "@babel/preset-env": "^7.16.0",
+    "@tim-code/autotest": "^0.8.2",
+    "@tim-code/eslint-config": "^0.5.5",
+    "jest": "^27.3.1",
     "node-fetch": "^3.0.0"
   },
   "jest": {
@@ -28,9 +28,6 @@
   },
   "eslintConfig": {
     "extends": "@tim-code",
-    "env": {
-      "jest": true
-    },
     "ignorePatterns": "index.cjs"
   },
   "babel": {
