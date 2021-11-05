@@ -57,7 +57,8 @@ async function fetchJson(
   url,
   { fetch: _fetch = fetch, onError: _onError = onError, raw = false, ...options } = {}
 ) {
-  const response = await _fetch(url, options)
+  const headers = { ...options.headers, ...(raw ? {} : { Accept: "application/json" }) }
+  const response = await _fetch(url, { ...options, ...headers })
   const text = await response.text()
   try {
     let result = raw ? text : JSON.parse(text)
