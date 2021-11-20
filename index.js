@@ -19,6 +19,13 @@ export function parseIndexOfError(message, text) {
   return undefined
 }
 
+function shorten(string, newLength = 100) {
+  if (string.length > newLength) {
+    return `${string.substring(0, newLength)}...`
+  }
+  return string
+}
+
 export function onError({
   status,
   result,
@@ -40,17 +47,10 @@ export function onError({
       const message = text.substring(left, right)
       error(`invalid json:`, status, `${leftEllipsis}${message}${rightEllipsis}`)
     } else {
-      error(`invalid json:`, status, jsonSyntaxMessage)
+      error(`invalid json:`, status, shorten(text))
     }
   }
   return {}
-}
-
-function shorten(string, newLength = 100) {
-  if (string.length > newLength) {
-    return `${string.substring(0, newLength)}...`
-  }
-  return string
 }
 
 async function fetchJson(
