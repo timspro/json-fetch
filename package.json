@@ -1,6 +1,6 @@
 {
   "name": "@tim-code/json-fetch",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "",
   "main": "./index.cjs",
   "exports": {
@@ -18,9 +18,9 @@
     "@babel/cli": "^7.16.0",
     "@babel/core": "^7.16.0",
     "@babel/preset-env": "^7.16.4",
-    "@tim-code/autotest": "^0.10.1",
-    "@tim-code/eslint-config": "^0.5.10",
-    "jest": "^27.4.0",
+    "@tim-code/autotest": "^0.10.3",
+    "@tim-code/eslint-config": "^0.5.14",
+    "jest": "^27.4.4",
     "node-fetch": "^3.1.0"
   },
   "jest": {
