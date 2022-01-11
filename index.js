@@ -19,7 +19,7 @@ export function parseIndexOfError(message, text) {
   return undefined
 }
 
-function shorten(string, newLength = 100) {
+function shorten(string, newLength = 1000) {
   if (string.length > newLength) {
     return `${string.substring(0, newLength)}...`
   }
