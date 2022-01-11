@@ -31,7 +31,7 @@ export function onError({
   result,
   text,
   jsonSyntaxMessage,
-  aroundError = 50,
+  aroundError = 500,
   error = console.error,
 }) {
   if (result) {
