@@ -85,13 +85,13 @@ export function appendQueryParams(url, input) {
 
 export function get(url, query, options = {}) {
   url = appendQueryParams(url, query)
-  return fetchJson(url, { ...options, method: "GET" })
+  return fetchJson(url, { method: "GET", ...options })
 }
 
 export function post(url, body, options = {}) {
   body = JSON.stringify(body)
   const headers = { ...(options.headers || {}), "Content-Type": "application/json" }
-  return fetchJson(url, { ...options, headers, method: "POST", body })
+  return fetchJson(url, { method: "POST", ...options, headers, body })
 }
 
 function httpMethod(url, { query, body, ...options } = {}) {
