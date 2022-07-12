@@ -55,11 +55,20 @@ export function onError({
 
 async function fetchJson(
   url,
-  { fetch: _fetch = fetch, onError: _onError = onError, raw = false, ...options } = {}
+  {
+    fetch: _fetch = fetch,
+    onError: _onError = onError,
+    raw = false,
+    responseHeaders = undefined,
+    ...options
+  } = {}
 ) {
-  const headers = { ...options.headers, ...(raw ? {} : { Accept: "application/json" }) }
-  const response = await _fetch(url, { ...options, headers })
+  const requestHeaders = { ...options.headers, ...(raw ? {} : { Accept: "application/json" }) }
+  const response = await _fetch(url, { ...options, headers: requestHeaders })
   const text = await response.text()
+  if (responseHeaders) {
+    responseHeaders(response.headers)
+  }
   try {
     let result = raw ? text : JSON.parse(text)
     if (response.ok) {
